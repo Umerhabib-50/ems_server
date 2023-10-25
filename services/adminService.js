@@ -18,6 +18,11 @@ const createEmployee = catchAsyncService(async (...args) => {
   return await newEmployee.save();
 });
 
+const getAllEmployees = catchAsyncService(async (...args) => {
+  const employees = await Employee.find();
+  return employees;
+});
+
 const signUp = catchAsyncService(async (...args) => {
   const signupData = args[0];
   const newAdmin = new Admin(signupData);
@@ -28,4 +33,5 @@ module.exports = {
   createEmployee,
   signIn,
   signUp,
+  getAllEmployees,
 };

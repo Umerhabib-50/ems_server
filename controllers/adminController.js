@@ -20,7 +20,13 @@ const createEmployee = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, newEmployee);
 });
 
+const getAllEmployees = catchAsync(async (req, res, next) => {
+  const employees = await AdminService.getAllEmployees();
+  sendSuccessResponse(res, employees);
+});
+
 module.exports = {
+  getAllEmployees,
   createEmployee,
   signIn,
   signUp,

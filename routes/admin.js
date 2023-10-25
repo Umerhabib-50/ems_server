@@ -11,4 +11,10 @@ router.post(
   adminController.createEmployee
 );
 
+router.get(
+  "/employees/all",
+  authenticateToken,
+  adminController.getAllEmployees
+);
+
 module.exports = router;
