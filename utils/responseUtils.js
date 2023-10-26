@@ -4,31 +4,27 @@ const sendSuccessResponse = (res, data) => {
 };
 
 const sendErrorResponse = (error, req, res, next) => {
-  // Wrong Mongodb Id error
-  let message;
-  if (error.name === "CastError") {
-    message = `Resource not found. Invalid: ${error.path}`;
-  }
+  error.statusCode = error.statusCode || "500";
+  error.message = error.message || "Internal Server Error";
 
-  // Mongoose duplicate key error
-  if (error.code === 11000) {
-    message = `Duplicate ${Object.keys(error.keyValue)} Entered`;
-  }
-
-  // Wrong JWT error
-  if (error.name === "JsonWebTokenError") {
-    message = `Json Web Token is invalid, Try again `;
-  }
-
-  // JWT EXPIRE error
-  if (error.name === "TokenExpiredError") {
-    message = `Json Web Token is Expired, Try again `;
-  }
-
-  res.status(500).json({ success: false, error: error, message });
+  res.status(error.statusCode).json({
+    success: false,
+    message: error.message,
+    code: error.statusCode,
+  });
 };
+
+class ErrorHandler extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
 
 module.exports = {
   sendSuccessResponse,
   sendErrorResponse,
+  ErrorHandler,
 };

@@ -1,10 +1,15 @@
 const AdminService = require("../services/adminService");
-const { sendSuccessResponse } = require("../utils/responseUtils");
+const { sendSuccessResponse, ErrorHandler } = require("../utils/responseUtils");
 const { catchAsync } = require("../utils/catchAsyncErrors");
 const generateToken = require("../utils/generateToken");
 
 const signIn = catchAsync(async (req, res, next) => {
   const admin = await AdminService.signIn(req.body);
+
+  if (!admin) {
+    return next(new ErrorHandler("Invalid credentials", 401));
+  }
+
   const token = generateToken(admin);
   sendSuccessResponse(res, token);
 });

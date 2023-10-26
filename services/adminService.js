@@ -6,9 +6,6 @@ const jwt = require("jsonwebtoken");
 const signIn = catchAsyncService(async (...args) => {
   const loginData = args[0];
   const admin = await Admin.findOne({ email: loginData.email });
-  if (!admin) {
-    throw new Error("Invalid Credentials");
-  }
   return admin;
 });
 
