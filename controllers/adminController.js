@@ -10,8 +10,12 @@ const signIn = catchAsync(async (req, res, next) => {
     return next(new ErrorHandler("Invalid credentials", 401));
   }
 
+  if (admin.password != req.body.password) {
+    return next(new ErrorHandler("Invalid credentials", 401));
+  }
+
   const token = generateToken(admin);
-  sendSuccessResponse(res, token);
+  sendSuccessResponse(res, { token, role: [1000] });
 });
 
 const signUp = catchAsync(async (req, res, next) => {

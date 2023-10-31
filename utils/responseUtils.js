@@ -1,6 +1,6 @@
 // src/utils/responseUtils.js
 const sendSuccessResponse = (res, data) => {
-  res.status(200).json({ success: true, data });
+  res.status(200).json({ success: true, ...data });
 };
 
 const sendErrorResponse = (error, req, res, next) => {
