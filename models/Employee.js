@@ -14,7 +14,9 @@ const employeeSchema = new mongoose.Schema({
   },
   position: String,
   department: String,
-  salary: Number,
+  salary: String,
+  password: String,
+  date: String,
 
   //   hireDate: {
   //     type: Date,
