@@ -34,7 +34,13 @@ const getAllEmployees = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, employees);
 });
 
+const getAllloans = catchAsync(async (req, res, next) => {
+  const loans = await AdminService.getAllLoans();
+  sendSuccessResponse(res, loans);
+});
+
 module.exports = {
+  getAllloans,
   getAllEmployees,
   createEmployee,
   signIn,

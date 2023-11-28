@@ -5,7 +5,6 @@ const employeeService = require("../services/employeeService");
 
 const signIn = catchAsync(async (req, res, next) => {
   const employee = await employeeService.signIn(req.body);
-  console.log(employee);
   if (!employee) {
     return next(new ErrorHandler("Invalid credentials", 401));
   }
@@ -13,7 +12,15 @@ const signIn = catchAsync(async (req, res, next) => {
     return next(new ErrorHandler("Invalid credentials", 401));
   }
   const token = generateToken(employee);
-  sendSuccessResponse(res, { token, role: [2000] });
+  sendSuccessResponse(res, { token, role: [2000], employee });
 });
 
-module.exports = { signIn };
+const applyLoan = catchAsync(async (req, res, next) => {
+  // 654a8c742674e68e7e7a7a3f
+
+  const loan = await employeeService.applyLoan(req.body);
+  sendSuccessResponse(res, loan);
+}); 
+
+module.exports = { signIn, applyLoan };
+   

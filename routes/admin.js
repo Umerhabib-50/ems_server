@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
-const authenticateToken = require("../middlewares/authentication");
+const { authenticateToken } = require("../middlewares/authentication");
 
 router.post("/signin", adminController.signIn);
 router.post("/signup", adminController.signUp);
@@ -16,5 +16,7 @@ router.get(
   authenticateToken,
   adminController.getAllEmployees
 );
+
+router.get("/employees/loans", adminController.getAllloans);
 
 module.exports = router;

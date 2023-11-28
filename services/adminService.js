@@ -2,6 +2,7 @@ const { catchAsyncService } = require("../utils/catchAsyncErrors");
 const Employee = require("../models/Employee");
 const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
+const LoanApplication = require("../models/Loan");
 
 const signIn = catchAsyncService(async (...args) => {
   const loginData = args[0];
@@ -26,9 +27,15 @@ const signUp = catchAsyncService(async (...args) => {
   return await newAdmin.save();
 });
 
+const getAllLoans = catchAsyncService(async (...args) => {
+  const loans = await LoanApplication.find();
+  return loans;
+});
+
 module.exports = {
   createEmployee,
   signIn,
   signUp,
   getAllEmployees,
+  getAllLoans,
 };
