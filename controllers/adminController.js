@@ -39,10 +39,28 @@ const getAllloans = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, loans);
 });
 
+const getAllLeaves = catchAsync(async (req, res, next) => {
+  const leaves = await AdminService.getAllLeaves();
+  sendSuccessResponse(res, leaves);
+});
+
+const Approve_Reject_loan = catchAsync(async (req, res, next) => {
+  const updatedloan = await AdminService.Aprrove_Reject_loan(req.body);
+  sendSuccessResponse(res, updatedloan);
+});
+
+const Approve_Reject_leave = catchAsync(async (req, res, next) => {
+  const updatedleave = await AdminService.Aprrove_Reject_leave(req.body);
+  sendSuccessResponse(res, updatedleave);
+});
+
 module.exports = {
   getAllloans,
   getAllEmployees,
   createEmployee,
   signIn,
   signUp,
+  Approve_Reject_loan,
+  getAllLeaves,
+  Approve_Reject_leave,
 };

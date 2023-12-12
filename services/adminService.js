@@ -3,6 +3,7 @@ const Employee = require("../models/Employee");
 const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const LoanApplication = require("../models/Loan");
+const LeaveApplication = require("../models/leaves");
 
 const signIn = catchAsyncService(async (...args) => {
   const loginData = args[0];
@@ -27,9 +28,36 @@ const signUp = catchAsyncService(async (...args) => {
   return await newAdmin.save();
 });
 
+const getAllLeaves = catchAsyncService(async (...args) => {
+  const leaves = await LeaveApplication.find();
+  return leaves;
+});
+
 const getAllLoans = catchAsyncService(async (...args) => {
   const loans = await LoanApplication.find();
   return loans;
+});
+
+const Aprrove_Reject_loan = catchAsyncService(async (...args) => {
+  const data = args[0];
+  const { loanId, status } = data;
+  const updatedLoan = await LoanApplication.findByIdAndUpdate(
+    loanId,
+    { status },
+    { new: true }
+  );
+  return updatedLoan;
+});
+
+const Aprrove_Reject_leave = catchAsyncService(async (...args) => {
+  const data = args[0];
+  const { leaveId, status } = data;
+  const updatedLeave = await LeaveApplication.findByIdAndUpdate(
+    leaveId,
+    { status },
+    { new: true }
+  );
+  return updatedLeave;
 });
 
 module.exports = {
@@ -38,4 +66,7 @@ module.exports = {
   signUp,
   getAllEmployees,
   getAllLoans,
+  Aprrove_Reject_loan,
+  getAllLeaves,
+  Aprrove_Reject_leave,
 };

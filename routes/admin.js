@@ -18,5 +18,15 @@ router.get(
 );
 
 router.get("/employees/loans", adminController.getAllloans);
+router.get("/employees/leaves", adminController.getAllLeaves);
+router.patch(
+  "/employees/loans/approve-reject",
+  adminController.Approve_Reject_loan
+);
+
+router.patch(
+  "/employees/leaves/approve-reject",
+  adminController.Approve_Reject_leave
+);
 
 module.exports = router;

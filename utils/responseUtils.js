@@ -4,7 +4,7 @@ const sendSuccessResponse = (res, data) => {
 };
 
 const sendErrorResponse = (error, req, res, next) => {
-  error.statusCode = error.statusCode || "500";
+  error.statusCode = error.statusCode || 500;
   error.message = error.message || "Internal Server Error";
 
   res.status(error.statusCode).json({

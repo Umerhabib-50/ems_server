@@ -16,11 +16,23 @@ const signIn = catchAsync(async (req, res, next) => {
 });
 
 const applyLoan = catchAsync(async (req, res, next) => {
-  // 654a8c742674e68e7e7a7a3f
-
   const loan = await employeeService.applyLoan(req.body);
   sendSuccessResponse(res, loan);
-}); 
+});
 
-module.exports = { signIn, applyLoan };
-   
+const applyLeave = catchAsync(async (req, res, next) => {
+  const loan = await employeeService.applyLeave(req.body);
+  sendSuccessResponse(res, loan);
+});
+
+const loanhistory = catchAsync(async (req, res, next) => {
+  const loan = await employeeService.loanHistory(req.body);
+  sendSuccessResponse(res, loan);
+});
+
+const leavehistory = catchAsync(async (req, res, next) => {
+  const leaves = await employeeService.leaveHistory(req.body);
+  sendSuccessResponse(res, leaves);
+});
+
+module.exports = { signIn, applyLoan, loanhistory, applyLeave, leavehistory };
