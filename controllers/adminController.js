@@ -44,6 +44,11 @@ const getAllLeaves = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, leaves);
 });
 
+const getAllAssets = catchAsync(async (req, res, next) => {
+  const assets = await AdminService.getAllAssets();
+  sendSuccessResponse(res, assets);
+});
+
 const Approve_Reject_loan = catchAsync(async (req, res, next) => {
   const updatedloan = await AdminService.Aprrove_Reject_loan(req.body);
   sendSuccessResponse(res, updatedloan);
@@ -52,6 +57,11 @@ const Approve_Reject_loan = catchAsync(async (req, res, next) => {
 const Approve_Reject_leave = catchAsync(async (req, res, next) => {
   const updatedleave = await AdminService.Aprrove_Reject_leave(req.body);
   sendSuccessResponse(res, updatedleave);
+});
+
+const Approve_Reject_asset = catchAsync(async (req, res, next) => {
+  const updatedasset = await AdminService.Aprrove_Reject_asset(req.body);
+  sendSuccessResponse(res, updatedasset);
 });
 
 module.exports = {
@@ -63,4 +73,6 @@ module.exports = {
   Approve_Reject_loan,
   getAllLeaves,
   Approve_Reject_leave,
+  getAllAssets,
+  Approve_Reject_asset,
 };

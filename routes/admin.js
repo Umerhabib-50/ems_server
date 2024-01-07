@@ -19,6 +19,8 @@ router.get(
 
 router.get("/employees/loans", adminController.getAllloans);
 router.get("/employees/leaves", adminController.getAllLeaves);
+router.get("/employees/assets", adminController.getAllAssets);
+
 router.patch(
   "/employees/loans/approve-reject",
   adminController.Approve_Reject_loan
@@ -27,6 +29,11 @@ router.patch(
 router.patch(
   "/employees/leaves/approve-reject",
   adminController.Approve_Reject_leave
+);
+
+router.patch(
+  "/employees/assets/approve-reject",
+  adminController.Approve_Reject_asset
 );
 
 module.exports = router;

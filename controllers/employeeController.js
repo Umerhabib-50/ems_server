@@ -25,6 +25,11 @@ const applyLeave = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, loan);
 });
 
+const applyasset = catchAsync(async (req, res, next) => {
+  const asset = await employeeService.applyasset(req.body);
+  sendSuccessResponse(res, asset);
+});
+
 const loanhistory = catchAsync(async (req, res, next) => {
   const loan = await employeeService.loanHistory(req.body);
   sendSuccessResponse(res, loan);
@@ -35,4 +40,23 @@ const leavehistory = catchAsync(async (req, res, next) => {
   sendSuccessResponse(res, leaves);
 });
 
-module.exports = { signIn, applyLoan, loanhistory, applyLeave, leavehistory };
+const assethistory = catchAsync(async (req, res, next) => {
+  const assets = await employeeService.assetHistory(req.body);
+  sendSuccessResponse(res, assets);
+});
+
+const changePassword = catchAsync(async (req, res, next) => {
+  const updatedPassword = await employeeService.changePassword(req.body);
+  sendSuccessResponse(res, updatedPassword);
+});
+
+module.exports = {
+  signIn,
+  applyLoan,
+  loanhistory,
+  applyLeave,
+  leavehistory,
+  applyasset,
+  assethistory,
+  changePassword,
+};

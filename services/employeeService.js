@@ -3,6 +3,7 @@ const Employee = require("../models/Employee");
 const LoanApplication = require("../models/Loan");
 const jwt = require("jsonwebtoken");
 const LeaveApplication = require("../models/leaves");
+const AssetApplication = require("../models/Assets");
 
 const signIn = catchAsyncService(async (...args) => {
   const loginData = args[0];
@@ -38,6 +39,19 @@ const applyLeave = catchAsyncService(async (...args) => {
   return await leaveApplication.save();
 });
 
+const applyasset = catchAsyncService(async (...args) => {
+  const assetData = args[0];
+  const { employeeId, name, type } = assetData;
+
+  const asset = new AssetApplication({
+    name,
+    type,
+    employeeId,
+    requestDate: Date.now(),
+  });
+  return await asset.save();
+});
+
 const loanHistory = catchAsyncService(async (...args) => {
   const loanData = args[0];
 
@@ -56,4 +70,35 @@ const leaveHistory = catchAsyncService(async (...args) => {
   return leaveHistory;
 });
 
-module.exports = { signIn, applyLoan, loanHistory, applyLeave, leaveHistory };
+const assetHistory = catchAsyncService(async (...args) => {
+  const data = args[0];
+
+  const { employeeId } = data;
+
+  const assetHistory = await AssetApplication.find({ employeeId: employeeId });
+  return assetHistory;
+});
+
+const changePassword = catchAsyncService(async (...args) => {
+  const data = args[0];
+  const { userId, newPassword } = data;
+
+  const updatedasset = await Employee.findByIdAndUpdate(
+    userId,
+    { password: newPassword },
+    { new: true }
+  );
+
+  return updatedasset;
+});
+
+module.exports = {
+  signIn,
+  applyLoan,
+  loanHistory,
+  applyLeave,
+  leaveHistory,
+  applyasset,
+  assetHistory,
+  changePassword,
+};

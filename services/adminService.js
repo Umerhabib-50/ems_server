@@ -4,6 +4,7 @@ const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const LoanApplication = require("../models/Loan");
 const LeaveApplication = require("../models/leaves");
+const AssetApplication = require("../models/Assets");
 
 const signIn = catchAsyncService(async (...args) => {
   const loginData = args[0];
@@ -33,6 +34,11 @@ const getAllLeaves = catchAsyncService(async (...args) => {
   return leaves;
 });
 
+const getAllAssets = catchAsyncService(async (...args) => {
+  const assets = await AssetApplication.find();
+  return assets;
+});
+
 const getAllLoans = catchAsyncService(async (...args) => {
   const loans = await LoanApplication.find();
   return loans;
@@ -60,6 +66,19 @@ const Aprrove_Reject_leave = catchAsyncService(async (...args) => {
   return updatedLeave;
 });
 
+const Aprrove_Reject_asset = catchAsyncService(async (...args) => {
+  const data = args[0];
+  const { assetId, status } = data;
+
+  const updatedasset = await AssetApplication.findByIdAndUpdate(
+    assetId,
+    { status, issueDate: Date.now() },
+    { new: true }
+  );
+
+  return updatedasset;
+});
+
 module.exports = {
   createEmployee,
   signIn,
@@ -69,4 +88,6 @@ module.exports = {
   Aprrove_Reject_loan,
   getAllLeaves,
   Aprrove_Reject_leave,
+  getAllAssets,
+  Aprrove_Reject_asset,
 };
